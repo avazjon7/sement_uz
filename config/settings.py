@@ -31,7 +31,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'sement_uz',
     'rest_framework',
-    # 'import_export',
+    'import_export',
 ]
 
 MIDDLEWARE = [
@@ -188,3 +188,6 @@ JAZZMIN_SETTINGS = {
         "auth.group": "vertical_tabs",
     },
 }
+
+
+ADMIN_SITE = 'sement_uz.admin.admin_site'
