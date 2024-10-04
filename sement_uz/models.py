@@ -28,12 +28,14 @@ class User(BaseModel):
     is_superuser = models.BooleanField(default=True)
 
 class Order(BaseModel):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)  # Link order to a user
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    name = models.CharField(max_length=100, null=True, blank=True)
+    full_name = models.CharField(max_length=100, blank=True)
     phone = models.CharField(max_length=13)
     quantity = models.IntegerField(default=0)
+    sum = models.IntegerField(default=0)
+    requisites = models.IntegerField(default=0)
+    location = models.CharField(max_length=255,blank=True)
     status = models.CharField(max_length=20, default='pending')  # Track order status
 
     def __str__(self):
-        return f'{self.name} - {self.phone}'
+        return f'{self.full_name} - {self.phone}'
