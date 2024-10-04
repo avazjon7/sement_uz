@@ -2,13 +2,33 @@
 
 {% block content %}
 <h1>Sales Statistics</h1>
+
+<!-- Table for sales statistics -->
+<table>
+    <thead>
+        <tr>
+            <th>Product Name</th>
+            <th>Total Quantity Sold</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for sale in product_sales %}
+        <tr>
+            <td>{{ sale.product__name }}</td>
+            <td>{{ sale.total_quantity }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<!-- Bar Chart for sales statistics -->
 <canvas id="salesChart" width="400" height="200"></canvas>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
     const ctx = document.getElementById('salesChart').getContext('2d');
-    const labels = {{ product_sales|pluck:'product__name'|safe }};
-    const data = {{ product_sales|pluck:'total_quantity'|safe }};
+    const labels = {{ product_names }};
+    const data = {{ total_quantities }};
 
     const salesChart = new Chart(ctx, {
         type: 'bar',

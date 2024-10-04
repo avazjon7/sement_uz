@@ -3,9 +3,10 @@ from rest_framework.response import Response
 from sement_uz.models import Product, Order, User
 from .serializers import ProductSerializer, OrderSerializer, UserSerializer
 from django.shortcuts import get_object_or_404
-from django.shortcuts import render
 from django.db.models import Sum
-
+from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
+from .models import Product
 
 # API View for Product List and Detail
 class ProductViewSet(viewsets.ModelViewSet):
@@ -40,4 +41,15 @@ def sales_statistics(request):
     context = {
         'product_sales': product_sales
     }
-    return render(request, 'sales_statistics.html', context)
+    return render(request, 'sement_uz/admin/sales_statistics.html', context)
+
+
+
+@login_required
+def my_view(request):
+    return render(request, 'your_template.html')  #protecdet code
+
+@login_required
+def product_list(request):
+    products = Product.objects.all()
+    return render(request, 'sement_uz/product_list.html', {'products': products})

@@ -1,16 +1,19 @@
 from django.urls import path, include
-from rest_framework.routers import DefaultRouter
 from sement_uz import views
-from sement_uz.views import sales_statistics
+from rest_framework.routers import DefaultRouter
 
-# Create a router for the API viewsets
+
 router = DefaultRouter()
-router.register(r'api/products', views.ProductViewSet)
-router.register(r'api/users', views.UserViewSet)
-router.register(r'api/orders', views.OrderViewSet)
+router.register(r'products', views.ProductViewSet)
+router.register(r'users', views.UserViewSet)
+router.register(r'orders', views.OrderViewSet)
 
 urlpatterns = [
-    # DRF API URLs
-    path('', include(router.urls)),
-    path('sales-statistics/', sales_statistics, name='sales_statistics'),# This will include all the API routes from the router
+
+    path('api/', include(router.urls)),
+
+    # Regular views
+    path('sales-statistics/', views.sales_statistics, name='sales_statistics'),
+    path('my-view/', views.my_view, name='my_view'),
+    path('product-list/', views.product_list, name='product_list'),
 ]

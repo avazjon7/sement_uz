@@ -1,0 +1,11 @@
+<!-- create_product.html -->
+<form method="POST" action="/create-product/">
+    {% csrf_token %}
+    <label for="product_name">Product Name:</label>
+    <input type="text" name="name" id="product_name">
+
+    <label for="price">Price:</label>
+    <input type="text" name="price" id="price">
+
+    <button type="submit">Add Product</button>
+</form>
