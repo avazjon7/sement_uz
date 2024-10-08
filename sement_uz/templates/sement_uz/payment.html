@@ -1,0 +1,36 @@
+<!-- templates/payment.html -->
+<script src="https://js.stripe.com/v3/"></script>
+
+<form action="{% url 'process_payment' %}" method="POST">
+  {% csrf_token %}
+  <input type="hidden" name="stripeToken" id="stripeToken">
+
+  <div id="card-element">
+    <!-- Stripe Elements будет рендерить форму для карты сюда -->
+  </div>
+
+  <button type="submit">Оплатить</button>
+</form>
+
+<script>
+  var stripe = Stripe('{{ stripe_publishable_key }}');
+  var elements = stripe.elements();
+
+  var card = elements.create('card');
+  card.mount('#card-element');
+
+  var form = document.querySelector('form');
+  form.addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    stripe.createToken(card).then(function(result) {
+      if (result.error) {
+        // Обработка ошибок
+      } else {
+        // Вставляем токен в форму и отправляем
+        document.getElementById('stripeToken').value = result.token.id;
+        form.submit();
+      }
+    });
+  });
+</script>

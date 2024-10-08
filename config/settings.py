@@ -1,7 +1,6 @@
 from datetime import timedelta
 from pathlib import Path
 import os
-
 from django.templatetags import static
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -10,6 +9,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-@@vao(u@8yr@_9+m0v*at(4@*bxe9(+nh03wdehtifw2ui*uki'
+# settings.py
+
+STRIPE_PUBLISHABLE_KEY = 'pk_test_51Q7cnmL8jnOjslxdyoO4jZGqcFuQkRs1Xvou05sY9ZaJfb9513CMsVf0EMveVRhZPqqzC9ZoYRiLfFF0dRp3giaR00BlvWOQMc'
+STRIPE_SECRET_KEY = 'sk_test_51Q7cnmL8jnOjslxdGiD5bkKchlzNARLAb1NXNNWsnHCctF2nO1QKN5cIHXE4ofEPNnc4aZJhEXsBucNvj4TpskDB00Rk67XXVH'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -58,7 +61,7 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -114,6 +117,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+import os
+from pathlib import Path
 
 STATICFILES_DIRS = [
     BASE_DIR / 'static',

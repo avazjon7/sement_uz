@@ -34,8 +34,19 @@ class Order(BaseModel):
     quantity = models.IntegerField(default=0)
     sum = models.IntegerField(default=0)
     requisites = models.IntegerField(default=0)
-    location = models.CharField(max_length=255,blank=True)
-    status = models.CharField(max_length=20, default='pending')  # Track order status
+    latitude = models.FloatField(null=True, blank=True)
+    longitude = models.FloatField(null=True, blank=True)
+    status = models.CharField(max_length=20, default='pending')
 
     def __str__(self):
         return f'{self.full_name} - {self.phone}'
+
+
+class Payment(models.Model):
+    user = models.ForeignKey('auth.User', on_delete=models.CASCADE)
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    stripe_charge_id = models.CharField(max_length=255)
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Payment of {self.amount} by {self.user}"

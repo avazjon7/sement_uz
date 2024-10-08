@@ -1,21 +1,21 @@
 from .models import User
-from django import forms
 from django.core.mail import send_mail
-
+from django import forms
+from .models import Order
 
 
 class LoginForm(forms.Form):
-    email = forms.CharField(required=True)
-    password = forms.CharField(required=True)
+    username = forms.CharField(required=True)
+    phone_number = forms.CharField(required=True)
 
 
 class RegisterModelForm(forms.ModelForm):
-    confirm_password = forms.CharField(max_length=100)
+    confirm_phone_number = forms.CharField(max_length=100)
     username = forms.CharField(max_length=100, required=False)
 
     class Meta:
         model = User
-        fields = ('username', 'email', 'password')
+        fields = ('username','phone_number','confirm_phone_number')
 
     def clean_email(self):
         email = self.data.get('email')
@@ -41,4 +41,15 @@ class RegisterModelForm(forms.ModelForm):
             user.save()
 
         return user
+
+class OrderForm(forms.ModelForm):
+    class Meta:
+        model = Order
+        fields = ['product', 'quantity', 'latitude', 'longitude']
+
+
+
+class PaymentForm(forms.Form):
+    stripeToken = forms.CharField(widget=forms.HiddenInput())
+    amount = forms.DecimalField(decimal_places=2, max_digits=10)
 
